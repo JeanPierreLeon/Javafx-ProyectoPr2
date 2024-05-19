@@ -9,4 +9,7 @@ module co.edu.uniquindio.proyectofinal.proyectofxapp {
 
     exports co.edu.uniquindio.proyectofinal.proyectofxapp.controller;
     opens co.edu.uniquindio.proyectofinal.proyectofxapp.controller;
+
+    exports co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
+    opens co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
 }

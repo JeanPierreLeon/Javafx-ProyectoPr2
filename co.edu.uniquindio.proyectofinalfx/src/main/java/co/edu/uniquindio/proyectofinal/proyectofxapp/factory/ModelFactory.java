@@ -1,6 +1,5 @@
 package co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
 
-import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteBuilder;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.TiendaDeportiva;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelFactory {
-    private static ModelFactory modelFactory;
+    private  static ModelFactory modelFactory;
     private  TiendaDeportiva tiendaDeportiva = TiendaDeportiva.builder().nombre("La activete").build();
 
     private ModelFactory(){
@@ -18,7 +17,7 @@ public class ModelFactory {
 
 
 
-    public static  ModelFactory getInstance(){
+    public static ModelFactory getInstance(){
         if (modelFactory == null){
             modelFactory = new ModelFactory();
         }
@@ -71,28 +70,31 @@ public class ModelFactory {
 
     }
 
-    public void actualizarCliente(String idCliente, String Nombre, String Apellidos, String Direccion, String Telefono) {
-
-        tiendaDeportiva.actualizarClientes(idCliente,Nombre,Apellidos,Direccion,Telefono);
-
-        crearCliente(idCliente,Nombre,Apellidos,Direccion,Telefono);
-    }
-
-    public void crearCliente(String idCliente, String Nombre, String Apellidos, String Direccion, String Telefono) {
-        Cliente cliente = Cliente.builder()
-                .nombre(Nombre)
-                .idCliente(idCliente)
-                .apellidos(Apellidos)
-                .direccion(Direccion)
-                .telefonoCliente(Telefono)
-                .build();
-
-        tiendaDeportiva.getListaClientes().add(cliente);
+    public boolean actualizarCliente(Cliente cliente) {
+       return tiendaDeportiva.actualizarClientes(cliente);
 
     }
 
-    public void eliminarClientes(String Telefono) {
-        tiendaDeportiva.eliminarClientes(Telefono);
+    public boolean actualizarEmpleado(Empleado empleado) {
+        return tiendaDeportiva.actualizarEmpleados(empleado);
+    }
+
+    public boolean crearCliente(Cliente cliente) {
+      return tiendaDeportiva.crearCliente(cliente);
+
+    }
+
+    public boolean crearEmpleado(Empleado empleado) {
+        return tiendaDeportiva.crearEmpleado(empleado);
+
+    }
+
+    public boolean eliminarClientes(Cliente cliente) {
+      return  tiendaDeportiva.eliminarClientes(cliente);
+    }
+
+    public boolean eliminarEmpleados(Empleado empleado) {
+        return tiendaDeportiva.eliminarEmpleados(empleado);
     }
 
     public List<Cliente> ObtenerDatosClientes() {
@@ -101,4 +103,23 @@ public class ModelFactory {
         return ListaClientes;
     }
 
+
+    public List<Cliente> obtenerClientes() {
+        return tiendaDeportiva.getListaClientes();
+    }
+
+    public List<Empleado> obtenerEmpleados() {
+        return tiendaDeportiva.getListaEmpleados();
+    }
+
+    public List<Cliente> obtenerClientesPorApellidos(String Apellidos) {
+        return tiendaDeportiva.obtenerClientesPorApellido(Apellidos); }
+
+
+
+
+/*
+    public boolean crearCliente(Cliente cliente) {return TiendaDeportiva.crearCliente(cliente);
+    }
+  */
 }

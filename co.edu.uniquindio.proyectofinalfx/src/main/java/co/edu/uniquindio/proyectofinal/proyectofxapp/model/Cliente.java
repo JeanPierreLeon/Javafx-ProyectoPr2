@@ -3,11 +3,11 @@ package co.edu.uniquindio.proyectofinal.proyectofxapp.model;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteBuilder;
 
 public class Cliente {
-    String idCliente;
-    String nombre;
-    String apellidos;
-    String direccion;
-    String telefonoCliente;
+    private String idCliente;
+    private String nombre;
+    private String apellidos;
+    private String direccion;
+    private String telefonoCliente;
 
     public Cliente() {
     }
