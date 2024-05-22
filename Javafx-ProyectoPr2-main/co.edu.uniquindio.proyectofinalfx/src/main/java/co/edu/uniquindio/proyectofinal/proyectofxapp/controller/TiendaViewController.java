@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteConDescuentoBuilder;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.factory.ModelFactory;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -99,6 +101,9 @@ public class TiendaViewController {
 
     @FXML
     private TableColumn<Empleado, String> colTelefonoEmpleado;
+
+    @FXML
+    private TextField txtDescuento;
 
     @FXML
     private TextField txtNombreEmpleado;
@@ -368,6 +373,7 @@ public class TiendaViewController {
                 .direccion(txtDireccion.getText())
                 .telefonoCliente(txtTelefono.getText())
                 .build();
+
     }
 
     private Empleado construirDatosEmpleado() {
@@ -461,4 +467,44 @@ public class TiendaViewController {
         }
     }
 
-}
+    @FXML
+    void onAplicarDescuento(ActionEvent event) {
+        Cliente cliente = TableCliente.getSelectionModel().getSelectedItem();
+        if (cliente != null) {
+            try {
+                double descuento = Double.parseDouble((txtDescuento.getText()));
+                ClienteConDescuento clienteConDescuento = new ClienteConDescuentoBuilder()
+                        .idCliente(cliente.getIdCliente())
+                        .nombre(cliente.getNombre())
+                        .apellidos(cliente.getApellidos())
+                        .direccion(cliente.getDireccion())
+                        .telefonoCliente(cliente.getTelefonoCliente())
+                        .descuento(descuento)
+                        .build();
+
+                double precioBase = 100.0; // Ejemplo de precio base
+                double precioConDescuento = clienteConDescuento.calcularPrecio(precioBase);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Precio con Descuento");
+                alert.setHeaderText("Precio final con descuento");
+                alert.setContentText("El precio con descuento es: " + precioConDescuento);
+                alert.showAndWait();
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Descuento inválido");
+                alert.setContentText("Por favor, ingrese un valor numérico válido para el descuento.");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText("Ningún cliente seleccionado");
+            alert.setContentText("Por favor, seleccione un cliente de la tabla.");
+            alert.showAndWait();
+        }
+    }
+    }
+
+

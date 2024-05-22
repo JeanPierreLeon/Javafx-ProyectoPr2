@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
 
+import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteConDescuentoBuilder;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.TiendaDeportiva;
 
@@ -42,9 +44,18 @@ public class ModelFactory {
                 .telefonoCliente("310")
                 .build();
 
+        Cliente clienteConDescuento1 = Cliente.builder()
+                .idCliente("3")
+                .nombre("Santiago")
+                .telefonoCliente("325")
+                .apellidos("Ramirez")
+                .direccion("Calle 30 calle 3")
+                .descuento(40)
+                .build();
+
         tiendaDeportiva.getListaClientes().add(cliente1);
         tiendaDeportiva.getListaClientes().add(cliente2);
-
+        tiendaDeportiva.getListaClientes().add(clienteConDescuento1);
 
         /*Creacion de Empleados*/
         Empleado empleado1 = Empleado.builder()
@@ -84,6 +95,11 @@ public class ModelFactory {
 
     }
 
+    public boolean crearClienteConDescuento(ClienteConDescuento clienteConDescuento) {
+        return tiendaDeportiva.crearClienteConDescuento(clienteConDescuento);
+
+    }
+
     public boolean crearEmpleado(Empleado empleado) {
         return tiendaDeportiva.crearEmpleado(empleado);
 
@@ -118,8 +134,5 @@ public class ModelFactory {
 
 
 
-/*
-    public boolean crearCliente(Cliente cliente) {return TiendaDeportiva.crearCliente(cliente);
-    }
-  */
+
 }

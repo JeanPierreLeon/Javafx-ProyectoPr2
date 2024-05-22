@@ -9,6 +9,8 @@ public class ClienteBuilder <T extends ClienteBuilder<T>>{
     protected String direccion;
     protected String telefonoCliente;
 
+    protected double descuento;
+
     public T idCliente(String idCliente){
         this.idCliente=idCliente;
         return self();
@@ -32,12 +34,19 @@ public class ClienteBuilder <T extends ClienteBuilder<T>>{
         this.telefonoCliente=telefonoCliente;
         return self();
     }
+
+    public T descuento(double descuento){
+        this.descuento=descuento;
+        return self();
+    }
     public Cliente build(){
-        return new Cliente(idCliente,nombre,apellidos,direccion,telefonoCliente);
+        return new Cliente(idCliente,nombre,apellidos,direccion,telefonoCliente,descuento);
     }
 
     @SuppressWarnings("unchecked")
     protected T self() {
         return (T) this;
     }
+
+
 }

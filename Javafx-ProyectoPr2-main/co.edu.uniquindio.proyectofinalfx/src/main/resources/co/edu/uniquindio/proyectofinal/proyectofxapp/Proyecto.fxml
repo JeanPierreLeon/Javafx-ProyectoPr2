@@ -43,6 +43,9 @@
                         <Button fx:id="btnEliminarCliente" layoutX="791.0" layoutY="672.0" mnemonicParsing="false" onAction="#onEliminarCliente" prefHeight="33.0" prefWidth="132.0" text="Eliminar Cliente" />
                         <TextField fx:id="txtFiltrar" layoutX="126.0" layoutY="286.0" onAction="#onFiltrar" prefHeight="31.0" prefWidth="222.0" />
                         <Label layoutX="64.0" layoutY="291.0" text="Filtrar" />
+                        <Button fx:id="btnAplicarDescuento" layoutX="649.0" layoutY="250.0" mnemonicParsing="false" onAction="#onAplicarDescuento" prefHeight="29.0" prefWidth="146.0" text="Aplicar Descuento" />
+                        <TextField fx:id="txtDescuento" layoutX="649.0" layoutY="181.0" prefHeight="38.0" prefWidth="264.0" />
+                        <Label layoutX="570.0" layoutY="192.0" text="Descuento" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyectofinal.proyectofxapp.controller;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.factory.ModelFactory;
 
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
 
 import java.util.List;
@@ -35,6 +36,10 @@ public class TiendaController {
         return modelFactory.crearCliente(cliente);
     }
 
+    public boolean CrearClienteConDescuento(ClienteConDescuento clienteConDescuento) {
+        return modelFactory.crearClienteConDescuento(clienteConDescuento);
+    }
+
     public boolean actualizarCliente(Cliente cliente) {
         return modelFactory.actualizarCliente(cliente);
     }
@@ -51,14 +56,5 @@ public class TiendaController {
     }
 
 
-    public List<Cliente> obtenerClientesPorApellidos(String Apellidos) {
-        return modelFactory.obtenerClientesPorApellidos(Apellidos);
-    }
 
-
-
-
-    //  public List<Cliente> obtenerClientesPorNombre(String Nombre) {
-  //      return modelFactory.obtenerClientesPorNombre(Nombre);
-   // }
 }

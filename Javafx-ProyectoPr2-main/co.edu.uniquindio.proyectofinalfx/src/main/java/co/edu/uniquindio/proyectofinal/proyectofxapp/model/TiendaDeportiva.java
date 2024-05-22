@@ -127,24 +127,10 @@ public class TiendaDeportiva {
         }
     }
 
-/*
-    public static List<Cliente> obtenerClientesPorApellidos(String Apellidos) {
-        List<Cliente> listaClientesPorApellidos = new ArrayList<>();
-
-        for (Cliente cliente: getListaClientes()) {
-            if(cliente.getApellidos().equalsIgnoreCase(Apellidos)){
-                listaClientesPorApellidos.add(cliente);
-            }
-        }
-
-        return listaClientesPorApellidos;
-    }
-*/
-
     private Cliente obtenerCliente(String idCliente) {
         Cliente cliente = null;
         for (Cliente cliente1: getListaClientes()) {
-            if(cliente1.getIdCliente().equalsIgnoreCase(idCliente)){
+            if(cliente1.getIdCliente() != null && cliente1.getIdCliente().equalsIgnoreCase(idCliente)){
                 cliente = cliente1;
                 break;
             }
@@ -158,6 +144,17 @@ public class TiendaDeportiva {
         Cliente ClienteEncontrado = obtenerCliente(nuevoCliente.getIdCliente());
         if(ClienteEncontrado == null){
             getListaClientes().add(nuevoCliente);
+            return true;
+        }else{
+            return  false;
+        }
+
+    }
+    public boolean crearClienteConDescuento(ClienteConDescuento nuevoClienteConDescuento) {
+
+        Cliente ClienteConDescuentoEncontrado = obtenerCliente(nuevoClienteConDescuento.getIdCliente());
+        if(ClienteConDescuentoEncontrado == null){
+            getListaClientes().add(ClienteConDescuentoEncontrado);
             return true;
         }else{
             return  false;
