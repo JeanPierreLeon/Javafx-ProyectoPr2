@@ -3,8 +3,8 @@ package co.edu.uniquindio.proyectofinal.proyectofxapp.controller;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.factory.ModelFactory;
 
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
-import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Producto;
 
 import java.util.List;
 
@@ -28,6 +28,11 @@ public class TiendaController {
         return modelFactory.obtenerEmpleados();
     }
 
+    public List<Producto> obtenerProductos() {
+
+        return modelFactory.obtenerProductos();
+    }
+
     public boolean CrearEmpleado(Empleado empleado) {
         return modelFactory.crearEmpleado(empleado);
     }
@@ -36,8 +41,8 @@ public class TiendaController {
         return modelFactory.crearCliente(cliente);
     }
 
-    public boolean CrearClienteConDescuento(ClienteConDescuento clienteConDescuento) {
-        return modelFactory.crearClienteConDescuento(clienteConDescuento);
+    public boolean CrearProducto(Producto producto) {
+        return modelFactory.crearProducto(producto);
     }
 
     public boolean actualizarCliente(Cliente cliente) {
@@ -47,6 +52,9 @@ public class TiendaController {
     public boolean actualizarEmpleado(Empleado empleado) {
         return modelFactory.actualizarEmpleado(empleado);
     }
+    public boolean actualizarProducto(Producto producto) {
+        return modelFactory.actualizarProducto(producto);
+    }
 
     public boolean eliminarCliente(Cliente cliente) {
         return modelFactory.eliminarClientes(cliente);
@@ -55,6 +63,7 @@ public class TiendaController {
         return modelFactory.eliminarEmpleados(empleado);
     }
 
-
-
+    public boolean eliminarProducto(Producto producto) {
+        return modelFactory.eliminarProducto(producto);
+    }
 }

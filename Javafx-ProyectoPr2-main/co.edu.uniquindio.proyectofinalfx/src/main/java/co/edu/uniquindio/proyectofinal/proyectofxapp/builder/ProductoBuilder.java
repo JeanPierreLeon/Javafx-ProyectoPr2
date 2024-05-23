@@ -4,13 +4,13 @@ import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Producto;
 
 public class ProductoBuilder <T extends ProductoBuilder<T>> {
-    protected int idProducto;
+    protected String idProducto;
     protected String nombreProducto;
     protected String descripcion;
-    protected int precio;
-    protected boolean stock;
+    protected String precio;
+    protected String stock;
 
-    public T idProducto(int idProducto){
+    public T idProducto(String idProducto){
         this.idProducto=idProducto;
         return self();
     }
@@ -25,12 +25,12 @@ public class ProductoBuilder <T extends ProductoBuilder<T>> {
         return self();
     }
 
-    public T precio(int precio){
+    public T precio(String precio){
         this.precio=precio;
         return self();
     }
 
-    public T stock(boolean stock){
+    public T stock(String stock){
         this.stock=stock;
         return self();
     }

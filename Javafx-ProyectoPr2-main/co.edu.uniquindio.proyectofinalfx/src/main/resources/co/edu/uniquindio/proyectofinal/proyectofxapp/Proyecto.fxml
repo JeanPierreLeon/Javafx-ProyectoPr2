@@ -27,8 +27,8 @@
                         <Label layoutX="81.0" layoutY="127.0" text="Nombre" />
                         <Label layoutX="84.0" layoutY="200.0" text="Apellidos" />
                         <Label layoutX="573.0" layoutY="52.0" text="Direccion" />
-                        <Button fx:id="btnCearCliente" layoutX="443.0" layoutY="287.0" mnemonicParsing="false" onAction="#onCrearCliente" prefHeight="29.0" prefWidth="112.0" text="Crear Cliente" />
-                        <Button fx:id="btnActualizarCliente" layoutX="649.0" layoutY="287.0" mnemonicParsing="false" onAction="#onActualizarCliente" prefHeight="29.0" prefWidth="146.0" text="Actualizar Cliente" />
+                        <Button fx:id="btnCearCliente" layoutX="179.0" layoutY="287.0" mnemonicParsing="false" onAction="#onCrearCliente" prefHeight="29.0" prefWidth="112.0" text="Crear Cliente" />
+                        <Button fx:id="btnActualizarCliente" layoutX="417.0" layoutY="287.0" mnemonicParsing="false" onAction="#onActualizarCliente" prefHeight="29.0" prefWidth="146.0" text="Actualizar Cliente" />
                         <Label layoutX="573.0" layoutY="127.0" text="Telefono" />
                         <TableView fx:id="TableCliente" layoutX="6.0" layoutY="338.0" prefHeight="334.0" prefWidth="968.0">
                           <columns>
@@ -39,11 +39,9 @@
                               <TableColumn fx:id="colDireccion" prefWidth="232.0" text="Direccion" />
                           </columns>
                         </TableView>
-                        <Separator layoutX="15.0" layoutY="253.0" prefHeight="29.0" prefWidth="991.0" />
+                        <Separator layoutX="15.0" layoutY="232.0" prefHeight="50.0" prefWidth="991.0" />
                         <Button fx:id="btnEliminarCliente" layoutX="791.0" layoutY="672.0" mnemonicParsing="false" onAction="#onEliminarCliente" prefHeight="33.0" prefWidth="132.0" text="Eliminar Cliente" />
-                        <TextField fx:id="txtFiltrar" layoutX="126.0" layoutY="286.0" onAction="#onFiltrar" prefHeight="31.0" prefWidth="222.0" />
-                        <Label layoutX="64.0" layoutY="291.0" text="Filtrar" />
-                        <Button fx:id="btnAplicarDescuento" layoutX="649.0" layoutY="250.0" mnemonicParsing="false" onAction="#onAplicarDescuento" prefHeight="29.0" prefWidth="146.0" text="Aplicar Descuento" />
+                        <Button fx:id="btnAplicarDescuento" layoutX="718.0" layoutY="287.0" mnemonicParsing="false" onAction="#onAplicarDescuento" prefHeight="29.0" prefWidth="146.0" text="Aplicar Descuento" />
                         <TextField fx:id="txtDescuento" layoutX="649.0" layoutY="181.0" prefHeight="38.0" prefWidth="264.0" />
                         <Label layoutX="570.0" layoutY="192.0" text="Descuento" />
                      </children></AnchorPane>
@@ -85,21 +83,33 @@
           </Tab>
             <Tab text="Producto">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="800.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="390.0" prefHeight="327.0" prefWidth="962.0">
+                        <Label layoutX="72.0" layoutY="57.0" text="Id Producto" />
+                        <TextField fx:id="txtIDProducto" layoutX="167.0" layoutY="53.0" prefHeight="36.0" prefWidth="250.0" />
+                        <TextField fx:id="txtNombreProducto" layoutX="167.0" layoutY="136.0" prefHeight="36.0" prefWidth="250.0" />
+                        <Label layoutX="45.0" layoutY="146.0" text="Nombre del producto" />
+                        <Label layoutX="72.0" layoutY="231.0" text="Descripcion" />
+                        <TextField fx:id="txtDescripcion" layoutX="167.0" layoutY="222.0" prefHeight="36.0" prefWidth="250.0" />
+                        <TextField fx:id="txtPrecioProducto" layoutX="655.0" layoutY="56.0" prefHeight="36.0" prefWidth="250.0" />
+                        <Label layoutX="555.0" layoutY="66.0" prefHeight="11.0" prefWidth="64.0" text="Precio" />
+                        <Label layoutX="555.0" layoutY="154.0" prefHeight="11.0" prefWidth="64.0" text="Stock" />
+                        <TextField fx:id="txtStock" layoutX="655.0" layoutY="144.0" prefHeight="36.0" prefWidth="250.0" />
+                        <Button fx:id="btnCrearProducto" layoutX="305.0" layoutY="293.0" mnemonicParsing="false" onAction="#onCrearProducto" prefHeight="29.0" prefWidth="112.0" text="Crear Producto" />
+                        <Button fx:id="btnActualizarProducto" layoutX="515.0" layoutY="293.0" mnemonicParsing="false" onAction="#onActualizarProducto" prefHeight="29.0" prefWidth="144.0" text="Actualizar Producto" />
+                        <TableView fx:id="TableProducto" layoutX="6.0" layoutY="351.0" prefHeight="331.0" prefWidth="979.0">
                            <columns>
-                              <TableColumn prefWidth="100.0" text="ID Cliente" />
-                              <TableColumn prefWidth="222.0" text="Nombre" />
-                              <TableColumn prefWidth="207.0" text="Apellidos" />
-                              <TableColumn prefWidth="144.0" text="Cargo" />
-                              <TableColumn prefWidth="195.0" text="Telefono" />
-                              <TableColumn prefWidth="70.0" text="Direccion" />
-                              <TableColumn prefWidth="249.0" text="Nombre" />
+                              <TableColumn fx:id="colProducto" prefWidth="120.0" text="ID Producto" />
+                              <TableColumn fx:id="colNombreProducto" prefWidth="250.0" text="Nombre del producto" />
+                              <TableColumn fx:id="colDescripcion" prefWidth="304.0" text="Descripcion" />
+                              <TableColumn fx:id="colPrecio" prefWidth="160.0" text="Precio" />
+                              <TableColumn fx:id="colStock" prefWidth="138.0" text="Stock" />
                            </columns>
                         </TableView>
-                        <Separator layoutX="-6.0" layoutY="361.0" prefHeight="29.0" prefWidth="991.0" />
-                     </children></AnchorPane>
+                        <Separator layoutX="-6.0" layoutY="322.0" prefHeight="29.0" prefWidth="991.0" />
+                        <Button fx:id="btnEliminarProducto" layoutX="771.0" layoutY="685.0" mnemonicParsing="false" onAction="#onEliminarProducto" prefHeight="29.0" prefWidth="144.0" text="Eliminar Producto" />
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
         </tabs>

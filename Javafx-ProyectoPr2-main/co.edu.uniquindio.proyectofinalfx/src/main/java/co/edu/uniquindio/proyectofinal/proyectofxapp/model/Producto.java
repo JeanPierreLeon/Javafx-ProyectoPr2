@@ -1,17 +1,21 @@
 package co.edu.uniquindio.proyectofinal.proyectofxapp.model;
 
+import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteBuilder;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.EmpleadoBuilder;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ProductoBuilder;
+
 public class Producto {
-    int idProducto;
+    String idProducto;
     String nombreProducto;
     String descripcion;
-    int precio;
-    boolean stock;
+    String precio;
+    String stock;
 
 
     public Producto() {
     }
 
-    public Producto(int idProducto, String nombreProducto, String descripcion, int precio, boolean stock) {
+    public Producto(String idProducto, String nombreProducto, String descripcion, String precio, String stock) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
@@ -19,11 +23,15 @@ public class Producto {
         this.stock = stock;
     }
 
-    public int getIdProducto() {
+    public static ProductoBuilder builder(){
+        return new ProductoBuilder();
+    }
+
+    public String getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
 
@@ -43,19 +51,19 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public int getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
-    public boolean isStock() {
+    public String getStock() {
         return stock;
     }
 
-    public void setStock(boolean stock) {
+    public void setStock(String stock) {
         this.stock = stock;
     }
 

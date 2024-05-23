@@ -9,6 +9,7 @@ import co.edu.uniquindio.proyectofinal.proyectofxapp.factory.ModelFactory;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Producto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,10 +21,11 @@ import javafx.scene.control.*;
 
 public class TiendaViewController {
     TiendaController tiendaController;
-    Empleado empleadoSeleccionado;
-    ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
     Cliente clienteSeleccionado;
-    ModelFactory modelFactory;
+    Empleado empleadoSeleccionado;
+    Producto productoSeleccionado;
+    ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList();
+    ObservableList<Producto> listaProductos = FXCollections.observableArrayList();
     ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
 
     @FXML
@@ -43,7 +45,19 @@ public class TiendaViewController {
     private TableView<Empleado> TableEmpleado;
 
     @FXML
+    private TableView<Producto> TableProducto;
+
+    @FXML
     private Button btnFiltrarApellidos;
+
+    @FXML
+    private Button btnCrearProducto;
+
+    @FXML
+    private Button btnEliminarProducto;
+
+    @FXML
+    private Button btnActualizarProducto;
 
     @FXML
     private Button btnFiltrarNombre;
@@ -67,6 +81,36 @@ public class TiendaViewController {
     private Button btnEliminarCliente;
 
     @FXML
+    private TableColumn<Producto, String> colNombreProducto;
+
+    @FXML
+    private TableColumn<Producto, String> colPrecio;
+
+    @FXML
+    private TableColumn<Producto, String> colProducto;
+
+    @FXML
+    private TableColumn<Producto, String> colStock;
+
+    @FXML
+    private TableColumn<Producto, String> colDescripcion;
+
+    @FXML
+    private TextField txtDescripcion;
+
+    @FXML
+    private TextField txtIDProducto;
+
+    @FXML
+    private TextField txtNombreProducto;
+
+    @FXML
+    private TextField txtPrecioProducto;
+
+    @FXML
+    private TextField txtStock;
+
+    @FXML
     private TableColumn<Cliente, String> colApellidos;
 
     @FXML
@@ -81,8 +125,6 @@ public class TiendaViewController {
     @FXML
     private TableColumn<Cliente, String> colTelefono;
 
-    @FXML
-    private TextField txtFiltrarApellidos;
 
     @FXML
     private TableColumn<Empleado, String> colApellidosEmpleado;
@@ -123,7 +165,6 @@ public class TiendaViewController {
     @FXML
     private TextField txtTelefonoEmpleado;
 
-
     @FXML
     private TextField txtDireccion;
 
@@ -151,60 +192,11 @@ public class TiendaViewController {
         listaEmpleados.addAll(tiendaController.obtenerEmpleados());
     }
 
-
-
-
-    @FXML
-    void onFiltrar(ActionEvent event) {
-
-        // Agregar un ChangeListener al texto del campo de filtro
-        txtFiltrar.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Llamar al método de filtrado cada vez que el texto cambie
-            filtrarTabla(newValue);
-        });
+    private void obtenerProductos() {
+        listaProductos.clear();
+        listaProductos.addAll(tiendaController.obtenerProductos());
     }
 
-    private void filtrarTabla(String filtro) {
-        // Obtener la lista de clientes
-        List<Cliente> clientesList = modelFactory.ObtenerDatosClientes();
-
-        // Crear una lista observable a partir de la lista de clientes
-        ObservableList<Cliente> clientesObservableList = FXCollections.observableArrayList(clientesList);
-
-        // Crear un FilteredList y configurar el predicado del filtro
-        FilteredList<Cliente> filteredData = new FilteredList<>(clientesObservableList, p -> true);
-
-        // Configurar el predicado del filtro para buscar en cualquier parte de los datos
-        filteredData.setPredicate(cliente -> {
-            // Si el campo de filtro está vacío, mostrar todos los clientes
-            if (filtro == null || filtro.isEmpty()) {
-                return true;
-            }
-
-            // Convertir el texto del filtro a minúsculas para una búsqueda insensible a mayúsculas
-            String lowerCaseFilter = filtro.toLowerCase();
-
-            // Verificar si algún atributo del cliente contiene el texto del filtro
-            if (cliente.getIdCliente().toLowerCase().contains(lowerCaseFilter) ||
-                    cliente.getNombre().toLowerCase().contains(lowerCaseFilter) ||
-                    cliente.getApellidos().toLowerCase().contains(lowerCaseFilter) ||
-                    cliente.getDireccion().toLowerCase().contains(lowerCaseFilter) ||
-                    cliente.getTelefonoCliente().toLowerCase().contains(lowerCaseFilter)) {
-                return true; // El filtro coincide con algún atributo del cliente
-            }
-            return false; // No hay coincidencia
-        });
-
-        // Envolver el FilteredList en un SortedList
-        SortedList<Cliente> sortedData = new SortedList<>(filteredData);
-
-        // Vincular el comparador del SortedList al comparador de la TableView para el ordenamiento
-        sortedData.comparatorProperty().bind(TableCliente.comparatorProperty());
-
-        // Establecer los datos filtrados (y ordenados) en la tabla
-        TableCliente.setItems(sortedData);
-
-    }
 
 
     private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
@@ -232,19 +224,75 @@ public class TiendaViewController {
         txtDireccionEmpleado.setText("");
     }
 
+    private void limpiarCamposProductos() {
+        txtIDProducto.setText("");
+        txtNombreProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecioProducto.setText("");
+        txtStock.setText("");
+    }
+
+    @FXML
+    void onCrearProducto(ActionEvent event) {
+        if(validarFormularioProducto()){
+            Producto producto = construirDatosProducto();
+            if(tiendaController.CrearProducto(producto)){
+                obtenerProductos();
+                mostrarMensaje("Notificación Producto", "Producto creado", "El Producto se ha creado con éxito", Alert.AlertType.INFORMATION);
+                limpiarCamposProductos();
+            }else{
+                mostrarMensaje("Notificación Producto", "Producto no creado", "El Producto no se ha creado con éxito", Alert.AlertType.ERROR);
+            }
+        }else{
+            mostrarMensaje("Notificación Producto", "Producto no creado", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    void onEliminarProducto(ActionEvent event) {
+        if(validarFormularioProducto()){
+            Producto producto = construirDatosProducto();
+            if(tiendaController.eliminarProducto(producto)){
+                obtenerProductos();
+                mostrarMensaje("Notificación Producto", "Producto eliminado", "El Producto se ha eliminado con éxito", Alert.AlertType.INFORMATION);
+                limpiarCamposProductos();
+            }else{
+                mostrarMensaje("Notificación Producto", "Producto no eliminado", "El Producto no se ha eliminado con éxito", Alert.AlertType.ERROR);
+            }
+        }else{
+            mostrarMensaje("Notificación Producto", "Producto no eliminado", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    void onActualizarProducto(ActionEvent event) {
+        if(validarFormularioProducto()){
+            Producto producto = construirDatosProducto();
+            if(tiendaController.actualizarProducto(producto)){
+                obtenerProductos();
+                mostrarMensaje("Notificación Producto", "Producto actualizado", "El Producto se ha actualizado con éxito", Alert.AlertType.INFORMATION);
+                limpiarCamposProductos();
+            }else{
+                mostrarMensaje("Notificación Producto", "Producto no actualizado", "El Producto no se ha actualizado con éxito", Alert.AlertType.ERROR);
+            }
+        }else{
+            mostrarMensaje("Notificación Producto", "Producto no actualizado", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
+        }
+    }
+
     @FXML
     void onActualizarEmpleado(ActionEvent event) {
         if(validarFormularioEmpleado()){
             Empleado empleado = construirDatosEmpleado();
             if(tiendaController.actualizarEmpleado(empleado)){
                 obtenerEmpleados();
-                mostrarMensaje("Notificación Cliente", "Cliente actualizada", "El cliente se ha actualizado con éxito", Alert.AlertType.INFORMATION);
+                mostrarMensaje("Notificación Empleado", "Empleado actualizado", "El Empleado se ha actualizado con éxito", Alert.AlertType.INFORMATION);
                 limpiarCamposEmpleados();
             }else{
-                mostrarMensaje("Notificación Cliente", "Cliente no actualizada", "El cliente no se ha actualizado con éxito", Alert.AlertType.ERROR);
+                mostrarMensaje("Notificación Empleado", "Empleado no actualizado", "El Empleado no se ha actualizado con éxito", Alert.AlertType.ERROR);
             }
         }else{
-            mostrarMensaje("Notificación Cliente", "Cliente no actualizada", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
+            mostrarMensaje("Notificación Empleado", "Empleado no actualizado", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
         }
     }
 
@@ -304,13 +352,13 @@ public class TiendaViewController {
             Cliente cliente = construirDatosCliente();
             if(tiendaController.actualizarCliente(cliente)){
                 obtenerClientes();
-                mostrarMensaje("Notificación Cliente", "Cliente actualizada", "El cliente se ha actualizado con éxito", Alert.AlertType.INFORMATION);
+                mostrarMensaje("Notificación Cliente", "Cliente actualizado", "El cliente se ha actualizado con éxito", Alert.AlertType.INFORMATION);
                 limpiarCamposClientes();
             }else{
-                mostrarMensaje("Notificación Cliente", "Cliente no actualizada", "El cliente no se ha actualizado con éxito", Alert.AlertType.ERROR);
+                mostrarMensaje("Notificación Cliente", "Cliente no actualizado", "El cliente no se ha actualizado con éxito", Alert.AlertType.ERROR);
             }
         }else{
-            mostrarMensaje("Notificación Cliente", "Cliente no actualizada", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
+            mostrarMensaje("Notificación Cliente", "Cliente no actualizado", "Los datos ingresados no son validos", Alert.AlertType.ERROR);
         }
     }
 
@@ -353,6 +401,18 @@ public class TiendaViewController {
         return true;
     }
 
+    private boolean validarFormularioProducto() {
+        if(txtNombreProducto.getText().isEmpty()
+                || txtIDProducto.getText().isEmpty()
+                || txtDescripcion.getText().isEmpty()
+                || txtPrecioProducto.getText().isEmpty()
+                || txtStock.getText().isEmpty()){
+            return false;
+        }
+
+        return true;
+    }
+
 
 
 
@@ -361,6 +421,7 @@ public class TiendaViewController {
         tiendaController = new TiendaController();
         initTableCliente();
         initTableEmpleado();
+        initTableProducto();
 
     }
 
@@ -384,8 +445,16 @@ public class TiendaViewController {
                 .cargo(txtCargoEmpleado.getText())
                 .telefono(txtTelefonoEmpleado.getText())
                 .direccion(txtDireccionEmpleado.getText())
+                .build();
+    }
 
-
+    private Producto construirDatosProducto() {
+        return Producto.builder()
+                .idProducto(txtIDProducto.getText())
+                .nombreProducto(txtNombreProducto.getText())
+                .descripcion(txtDescripcion.getText())
+                .precio(txtPrecioProducto.getText())
+                .stock((txtStock.getText()))
                 .build();
     }
 
@@ -409,6 +478,16 @@ public class TiendaViewController {
 
     }
 
+    private void initTableProducto() {
+
+        initDataBindingProducto();
+        obtenerProductos();
+        TableProducto.getItems().clear();
+        TableProducto.setItems(listaProductos);
+        listenerSelectionProducto();
+
+    }
+
     private void initDataBindingCliente() {
         colCliente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCliente()));
         colNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -426,6 +505,14 @@ public class TiendaViewController {
         colDireccionEmpleado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDireccion()));
     }
 
+    private void initDataBindingProducto() {
+        colProducto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdProducto()));
+        colNombreProducto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreProducto()));
+        colDescripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
+        colPrecio.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrecio()));
+        colStock.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStock()));
+    }
+
     private void listenerSelectionCliente() {
         TableCliente.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             clienteSeleccionado = newSelection;
@@ -437,6 +524,13 @@ public class TiendaViewController {
         TableEmpleado.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             empleadoSeleccionado = newSelection;
             mostrarInformacionEmpleado(empleadoSeleccionado);
+        });
+    }
+
+    private void listenerSelectionProducto() {
+        TableProducto.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            productoSeleccionado = newSelection;
+            mostrarInformacionProducto(productoSeleccionado);
         });
     }
 
@@ -462,6 +556,19 @@ public class TiendaViewController {
             txtCargoEmpleado.setText(empleadoSeleccionado.getCargo());
             txtTelefonoEmpleado.setText(String.valueOf(empleadoSeleccionado.getTelefono()));
             txtDireccionEmpleado.setText(empleadoSeleccionado.getDireccion());
+
+
+        }
+    }
+
+    private void mostrarInformacionProducto(Producto productoSeleccionado) {
+        if(productoSeleccionado != null){
+
+            txtIDProducto.setText(productoSeleccionado.getIdProducto());
+            txtNombreProducto.setText(productoSeleccionado.getNombreProducto());
+            txtDescripcion.setText(productoSeleccionado.getDescripcion());
+            txtPrecioProducto.setText(productoSeleccionado.getPrecio());
+            txtStock.setText((productoSeleccionado.getStock()));
 
 
         }

@@ -105,6 +105,16 @@ public class TiendaDeportiva {
             return  false;
         }
     }
+
+    public boolean eliminarProducto(Producto productoEliminar) {
+        Producto productoEncontrado = obtenerProducto(productoEliminar.getIdProducto());
+        if(productoEncontrado != null){
+            getListaProductos().remove(productoEncontrado);
+            return true;
+        }else{
+            return  false;
+        }
+    }
     public boolean actualizarClientes(Cliente cliente) {
         Cliente clienteEncontrado = obtenerCliente(cliente.getIdCliente());
         if(clienteEncontrado != null){
@@ -121,6 +131,17 @@ public class TiendaDeportiva {
         if(empleadoEncontrado != null){
             getListaEmpleados().remove(empleadoEncontrado);
             getListaEmpleados().add(empleado);
+            return true;
+        }else{
+            return  false;
+        }
+    }
+
+    public boolean actualizarProducto(Producto producto) {
+        Producto productoEncontrado = obtenerProducto(producto.getIdProducto());
+        if(productoEncontrado != null){
+            getListaProductos().remove(productoEncontrado);
+            getListaProductos().add(producto);
             return true;
         }else{
             return  false;
@@ -172,6 +193,18 @@ public class TiendaDeportiva {
 
         return empleado;
     }
+
+    private Producto obtenerProducto(String idProducto) {
+        Producto producto = null;
+        for (Producto producto1: getListaProductos()) {
+            if(producto1.getIdProducto().equalsIgnoreCase(idProducto)){
+                producto = producto1;
+                break;
+            }
+        }
+
+        return producto;
+    }
     public boolean crearEmpleado(Empleado nuevoEmpleado) {
 
         Empleado empleadoEncontrado = obtenerEmpleado(nuevoEmpleado.getIdEmpleado());
@@ -182,6 +215,15 @@ public class TiendaDeportiva {
             return  false;
         }
 
+    }
+    public boolean crearProducto(Producto nuevoProducto) {
+        Producto productoEncontrado = obtenerProducto(nuevoProducto.getIdProducto());
+        if(productoEncontrado == null){
+            getListaProductos().add(nuevoProducto);
+            return true;
+        }else{
+            return  false;
+        }
     }
     public List<Cliente> obtenerClientesPorApellido(String Apellidos) {
         List<Cliente> listaClientesPorApellidos = new ArrayList<>();
