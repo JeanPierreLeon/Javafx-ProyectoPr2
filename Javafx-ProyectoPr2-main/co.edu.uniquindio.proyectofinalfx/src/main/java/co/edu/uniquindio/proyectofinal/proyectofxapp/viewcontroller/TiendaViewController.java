@@ -1,11 +1,10 @@
-package co.edu.uniquindio.proyectofinal.proyectofxapp.controller;
+package co.edu.uniquindio.proyectofinal.proyectofxapp.viewcontroller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.proyectofinal.proyectofxapp.builder.ClienteConDescuentoBuilder;
-import co.edu.uniquindio.proyectofinal.proyectofxapp.factory.ModelFactory;
+import co.edu.uniquindio.proyectofinal.proyectofxapp.controller.TiendaController;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Cliente;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.ClienteConDescuento;
 import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Empleado;
@@ -13,8 +12,6 @@ import co.edu.uniquindio.proyectofinal.proyectofxapp.model.Producto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

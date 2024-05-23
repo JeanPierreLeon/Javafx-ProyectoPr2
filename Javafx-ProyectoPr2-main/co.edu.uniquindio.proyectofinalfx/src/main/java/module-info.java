@@ -12,4 +12,6 @@ module co.edu.uniquindio.proyectofinal.proyectofxapp {
 
     exports co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
     opens co.edu.uniquindio.proyectofinal.proyectofxapp.factory;
+    exports co.edu.uniquindio.proyectofinal.proyectofxapp.viewcontroller;
+    opens co.edu.uniquindio.proyectofinal.proyectofxapp.viewcontroller;
 }

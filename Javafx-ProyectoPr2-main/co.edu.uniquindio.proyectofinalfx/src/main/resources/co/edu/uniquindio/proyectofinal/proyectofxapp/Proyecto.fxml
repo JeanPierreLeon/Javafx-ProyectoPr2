@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="950.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectofinal.proyectofxapp.controller.TiendaViewController">
+<AnchorPane prefHeight="950.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyectofinal.proyectofxapp.viewcontroller.TiendaViewController">
    <children>
       <TabPane layoutX="16.0" layoutY="17.0" prefHeight="903.0" prefWidth="1048.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
