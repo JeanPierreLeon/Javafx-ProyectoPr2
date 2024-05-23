@@ -180,6 +180,67 @@ public class TiendaViewController {
     @FXML
     private TextField txtidCliente;
 
+    @FXML
+    private Button btnAgregarTransaccion;
+
+    @FXML
+    private TextField txtNumPrestamo;
+
+    @FXML
+    private TextField txtFechaPrestamo;
+
+    @FXML
+    private TextField txtFechaEntrega;
+
+    @FXML
+    private TextField txtClienteT;
+
+    @FXML
+    private TextField txtEmpleadoCedulaT;
+
+    @FXML
+    private TextField txtEmpleadoT;
+
+    @FXML
+    private TextField txtNombreObjetoT;
+
+    @FXML
+    private TextField txtCodigoObjetoT;
+
+    @FXML
+    void onAgregarT(ActionEvent event) {
+
+    }
+
+    @FXML
+    private TableColumn<?, ?> colNombreObjetoT;
+
+    @FXML
+    private TableColumn<?, ?> colFechaPrestamoT;
+
+    @FXML
+    private TableColumn<?, ?> colClienteCedulaT;
+
+    @FXML
+    private TableColumn<?, ?> colFechaEntregaT;
+
+    @FXML
+    private TableColumn<?, ?> colEmpleadoTransaccionT;
+
+    @FXML
+    private TableColumn<?, ?> colClienteTransaccionT;
+
+    @FXML
+    private TableColumn<?, ?> colCodigoObjetoT;
+
+    @FXML
+    private TableColumn<?, ?> colEmpleadoCedulaT;
+
+    @FXML
+    private TableColumn<?, ?> colNumeroPrestamoT;
+
+
+
 
 
     private void obtenerClientes() {
